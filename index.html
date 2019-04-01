@@ -1,0 +1,134 @@
+<html><head>
+
+<meta http-equiv="refresh" content="3;url=http://ub.ishiluo.cn:82"> 
+</head><body id="container" style="position:relative;overflow:hidden"><meta name="viewport" content="width=device-width,user-scalable=0,initial-scale=1">
+<style>
+	html,body{background:#DDD}
+	/*.voez{position:fixed;width:100%;height:100%;left:0;top:0;transform:rotate(90deg);transition:all 0.9s;visibility:hidden;opacity:0;background:#FFF}
+	.voez>div{position:absolute;top:calc(50% - 100px);left:calc(50% - 100px);width:200px;height:200px;border:1px solid #6B648E;transform:rotate(45deg)}
+	.voez>div>div{position:absolute;top:calc(50% - 20px);left:calc(50% - 20px);width:40px;height:40px}
+	.voez>div>div>div{position:absolute;width:20px;height:20px;left:calc(50% - 10px);top:-10px;padding-top:40px}
+	.voez>div>div>div>div{position:absolute;height:20px;width:20px;transform:translateY(-20px)}
+	.voez>div>div>div>div:before{content:"";border:1px solid #6B648E;width:18px;height:18px;position:absolute}
+	.voez>div>div>div.t{}
+	.voez>div>div>div.l{transform:rotate(90deg)}
+	.voez>div>div>div.r{transform:rotate(180deg)}
+	.voez>div>div>div.b{transform:rotate(270deg)}*/
+</style>
+<div style="position:fixed;z-index:1"></div>
+<!--<style>
+.con{transition:all 0.9s cubic-bezier(0.45, 0.05, 0.55, 0.95)}
+.squ>div{transition:bottom 0.9s cubic-bezier(0.45, 0.05, 0.55, 0.95)}
+</style>-->
+<script>
+voez={interval:null,
+init:function(){
+	if(voez.interval!=null)return;
+	var d=document.createElement('div');
+	document.body.appendChild(d);
+	d.outerHTML='<div class="voez" id="voez"><style>@-webkit-keyframes voez_outer{0%{-webkit-transform:rotate(0)}1%{-webkit-transform:rotate(0)}50%{-webkit-transform:rotate(-180deg)}100%{-webkit-transform:rotate(-360deg)}}@keyframes voez_outer{0{transform:rotate(0)}1%{transform:rotate(0)}50%{transform:rotate(-180deg)}100%{transform:rotate(-360deg)}}@-webkit-keyframes voez_inner{0%{bottom:0}50%{bottom:19px}100%{bottom:0}}@keyframes voez_inner{0{bottom:0}50%{bottom:19px}100%{bottom:0}}.voez{position:fixed;width:100%;height:100%;left:0;top:0;transition:0.9s;opacity:0;background:#FFF}.voez>div{position:absolute;top:calc(50% - 100px);left:calc(50% - 100px);width:200px;height:200px;border:1px solid #6B648E;transform:rotate(135deg) scale(0.5);transition:0.9s}.voez>div>div{position:absolute;top:calc(50% - 20px);left:calc(50% - 20px);width:40px;height:40px}.voez>div>div>div{position:absolute;width:20px;height:20px;left:calc(50% - 10px);top:-10px;padding-top:40px}.voez>div>div>div>div{position:absolute;height:20px;width:20px;transform:translateY(-20px)}.voez>div>div>div>div:before{content:"";border:1px solid #6B648E;width:18px;height:18px;position:absolute}.voez>div>div>div.t{}.voez>div>div>div.l{transform:rotate(90deg)}.voez>div>div>div.r{transform:rotate(180deg)}.voez>div>div>div.b{transform:rotate(270deg)}.voez_con{transition:all 0.9s cubic-bezier(0.45, 0.05, 0.55, 0.95);transform:rotate(-180deg)}.voez_squ>div{transition:bottom 0.9s cubic-bezier(0.45, 0.05, 0.55, 0.95);bottom:0}</style><div><div class="voez_con" id="voez_con"><div class="voez_squ t"><div></div></div><div class="voez_squ l"><div></div></div><div class="voez_squ r"><div></div></div><div class="voez_squ b"><div></div></div></div></div></div>';
+	requestAnimationFrame(voez.init2);
+	voez.process=!0;
+	voez.stop=!1;
+	voez.setAnimation=!0;
+},
+init2:function(){
+	var d=document.getElementById('voez');
+	d.childNodes[1].style.transform='rotate(45deg)';
+	d.style.opacity=0.7;
+	d.style.visibility='visible';
+	voez.interval=setInterval(voez.main,900);
+},
+stop:false,
+process:!0,
+main:function(){
+	var e=document.getElementsByClassName('voez_squ'),i;
+	if(voez.setAnimation){
+		var voez_con=document.getElementById('voez_con')
+		voez_con.style.webkitAnimationDuration='1.8s';
+		voez_con.style.webkitAnimationTimingFunction='ease-in-out';
+		voez_con.style.webkitAnimationIterationCount='infinite';
+		voez_con.style.webkitAnimationName='voez_outer';
+		voez_con.style.animation='1.8s ease-in-out 0s normal none infinite running voez_outer';
+		for(i=0;i<e.length;i++){
+			//e[i].childNodes[0].style.bottom=y+'px';
+			e[i].childNodes[0].style.webkitAnimationDuration='1.8s';
+			e[i].childNodes[0].style.webkitAnimationTimingFunction='ease-in-out';
+			e[i].childNodes[0].style.webkitAnimationIterationCount='infinite';
+			e[i].childNodes[0].style.webkitAnimationName='voez_inner';
+			e[i].childNodes[0].style.animation='1.8s ease-in-out 0s normal none infinite running voez_inner';
+		}
+		voez.setAnimation=!1;
+	}
+	if(voez.process && voez.stop){
+		document.getElementById('voez_con').style.animation='';
+		for(i=0;i<e.length;i++){
+			e[i].childNodes[0].style.animation='';
+		}
+		var d=document.getElementById('voez');
+		d.childNodes[1].style.transform='rotate(135deg) scale(0.5)';
+		d.style.opacity=0;
+		d.style.visibility='hidden';
+		clearInterval(voez.interval);
+		voez.interval=null;
+		setTimeout(voez.remove,900);
+		return;
+	}
+	voez.process=!voez.process;
+},
+remove:function(){
+	if(voez.interval==null)
+	document.body.removeChild(document.getElementById('voez'))
+}}
+requestAnimationFrame=function(){
+  return window.requestAnimationFrame||window.webkitRequestAnimationFrame||window.mozRequestAnimationFrame||function(e){window.setTimeout(e,1000/60)}
+}();
+/*setInterval(move,10);
+setInterval(rotate,10);*/
+window.addEventListener('load',voez.init)
+//setInterval(dots.create,200);
+</script><div class="voez" id="voez" style="opacity: 0.7; visibility: visible;"><style>@-webkit-keyframes voez_outer{0%{-webkit-transform:rotate(0)}1%{-webkit-transform:rotate(0)}50%{-webkit-transform:rotate(-180deg)}100%{-webkit-transform:rotate(-360deg)}}@keyframes voez_outer{0{transform:rotate(0)}1%{transform:rotate(0)}50%{transform:rotate(-180deg)}100%{transform:rotate(-360deg)}}@-webkit-keyframes voez_inner{0%{bottom:0}50%{bottom:19px}100%{bottom:0}}@keyframes voez_inner{0{bottom:0}50%{bottom:19px}100%{bottom:0}}.voez{position:fixed;width:100%;height:100%;left:0;top:0;transition:0.9s;opacity:0;background:#FFF}.voez>div{position:absolute;top:calc(50% - 100px);left:calc(50% - 100px);width:200px;height:200px;border:1px solid #6B648E;transform:rotate(135deg) scale(0.5);transition:0.9s}.voez>div>div{position:absolute;top:calc(50% - 20px);left:calc(50% - 20px);width:40px;height:40px}.voez>div>div>div{position:absolute;width:20px;height:20px;left:calc(50% - 10px);top:-10px;padding-top:40px}.voez>div>div>div>div{position:absolute;height:20px;width:20px;transform:translateY(-20px)}.voez>div>div>div>div:before{content:"";border:1px solid #6B648E;width:18px;height:18px;position:absolute}.voez>div>div>div.t{}.voez>div>div>div.l{transform:rotate(90deg)}.voez>div>div>div.r{transform:rotate(180deg)}.voez>div>div>div.b{transform:rotate(270deg)}.voez_con{transition:all 0.9s cubic-bezier(0.45, 0.05, 0.55, 0.95);transform:rotate(-180deg)}.voez_squ>div{transition:bottom 0.9s cubic-bezier(0.45, 0.05, 0.55, 0.95);bottom:0}</style><div style="transform: rotate(45deg);"><div class="voez_con" id="voez_con" style="animation: voez_outer 1.8s ease-in-out 0s infinite normal none running;"><div class="voez_squ t"><div style="animation: voez_inner 1.8s ease-in-out 0s infinite normal none running;"></div></div><div class="voez_squ l"><div style="animation: voez_inner 1.8s ease-in-out 0s infinite normal none running;"></div></div><div class="voez_squ r"><div style="animation: voez_inner 1.8s ease-in-out 0s infinite normal none running;"></div></div><div class="voez_squ b"><div style="animation: voez_inner 1.8s ease-in-out 0s infinite normal none running;"></div></div></div><iframe id="tmp_downloadhelper_iframe" style="display: none;" src="./voez_files/saved_resource.html"></iframe></div></div>
+<style type="text/css" >
+#footer{  
+    clear: both;  
+    display: block;  
+    text-align: center;   
+    margin: 0px auto;  
+    position: absolute;  
+    bottom: 0px;  
+    width: 100%;  
+}  
+</style>
+<script>  
+        var w=window.innerWidth  
+        || document.documentElement.clientWidth  
+        || document.body.clientWidth;  
+  
+        var h=window.innerHeight  
+        || document.documentElement.clientHeight  
+        || document.body.clientHeight;  
+        document.getElementById("footer").style.width=w + "px";  
+ </script>  
+
+
+<div id="footer">
+
+<p text-align: center>即将自动跳转，请耐心等候</p>
+<p text-align: center>The webpage will automatically jump, please wait patiently</p>
+<p text-align: center>互联网ICP备案：粤ICP备17002619号</p>
+<p text-align: center>China Internet Content Provider Registration Record: 粤ICP备17002619号</p>
+</div>
+
+
+
+<div style="display:none"><script src="http://s95.cnzz.com/z_stat.php?id=1261168305&web_id=1261168305" language="JavaScript"></script></div>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "http://hm.baidu.com/hm.js?cc352713f19e97d6841dea672a428283";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+</body></html>
