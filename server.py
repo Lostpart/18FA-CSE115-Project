@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, send_file, Response, jsonify
+from flask import Flask, request, render_template
 import json
 import left
 import right
@@ -60,6 +60,7 @@ def getweather_withip():
     result.append(right.getrightsidedata(locinfo, method)) 
     result.append(other.html_for_weather_info_part(1))
     return(json.dumps(result))
+
 
 @app.route('/getweather_bothloc/', methods = ['POST'])
 def getweather_bothloc():
