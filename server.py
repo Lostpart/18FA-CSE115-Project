@@ -41,7 +41,6 @@ def getweather():
 @app.route("/getweather_withip/", methods=["GET"])
 def getweather_withip():
     userIP = request.remote_addr
-    userIP = "8.22.140.55"
     if userIP in IPy.IP("8.22.104.0/21"):
         locinfo = [42.88642, -78.87815, "Buffalo"] 
         # Since 90%+ of the request will from our school IP address
