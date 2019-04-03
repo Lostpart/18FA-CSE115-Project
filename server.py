@@ -41,6 +41,7 @@ def getweather():
 @app.route("/getweather_withip/", methods=["GET"])
 def getweather_withip():
     userIP = request.remote_addr
+    userIP = "8.22.140.55"
     if userIP in IPy.IP("8.22.104.0/21"):
         locinfo = [42.88642, -78.87815, "Buffalo"] 
         # Since 90%+ of the request will from our school IP address
@@ -50,7 +51,7 @@ def getweather_withip():
         # http://ipinfo.io/8.8.8.8/geo?token=7df5a703e5f495
         with open("ip.log", "a") as f:
             f.write("http://ipinfo.io/"+userIP+"/geo?token=7df5a703e5f495"+"\n")
-        address = json.loads(urllib.request.urlopen("http://ipinfo.io/"+userIP+"/geo?token=7df5a703e5f495").read().decode("utf8","ignore"))
+        address = json.loads(urllib.request.urlopen("http://ipinfo.io/"+userIP+"/geo?token=7df5a703e5f495").read().decode("utf8", "ignore"))
         loc = address["loc"].split(",",1)
         locinfo = [loc[0],loc[1],address["city"]]
     

@@ -1,7 +1,9 @@
 import urllib.request
+import urllib
 import json
 import csv
 import math
+import time
 def getmapsetting(address, method):
     loc = address
     lat = loc[0]
@@ -84,25 +86,42 @@ def GetMiddleStr(content,startStr,endStr):
 def getcity(lat,lon):
 ##http://geocode.xyz/41.3189957000,2.0746469000?json=1 
     result = ""
-    data = json.loads(urllib.request.urlopen("http://geocode.xyz/"+str(lat)+","+str(lon)+"?json=1").read().decode("utf8","ignore"))
-    if "error" in data:
-        if data["error"]["code"] == "008":
-            if "suggestion" in data:
-                if data["suggestion"]["south"]["distance"] == {}:
-                    southdist = 99999
-                else:
-                    southdist = int(data["suggestion"]["south"]["distance"])
-                if data["suggestion"]["north"]["distance"] == {}:
-                    northdist = 99999
-                else:
-                    northdist = int(data["suggestion"]["north"]["distance"])
-                if southdist >= northdist:
-                    result = str(km_to_mile(int(data["suggestion"]["north"]["distance"])))+" miles north of "+ data["suggestion"]["north"]["city"] + countryname(data["suggestion"]["north"]["prov"])
-                else:
-                    result = str(km_to_mile(int(data["suggestion"]["south"]["distance"])))+" miles south of "+ data["suggestion"]["south"]["city"] + countryname(data["suggestion"]["south"]["prov"])
+    # data = json.loads(urllib.request.urlopen("http://geocode.xyz/"+str(lat)+","+str(lon)+"?json=1").read().decode("utf8","ignore"))
+    # if "error" in data:
+    #     if data["error"]["code"] == "008":
+    #         if "suggestion" in data:
+    #             if data["suggestion"]["south"]["distance"] == {}:
+    #                 southdist = 99999
+    #             else:
+    #                 southdist = int(data["suggestion"]["south"]["distance"])
+    #             if data["suggestion"]["north"]["distance"] == {}:
+    #                 northdist = 99999
+    #             else:
+    #                 northdist = int(data["suggestion"]["north"]["distance"])
+    #             if southdist >= northdist:
+    #                 result = str(km_to_mile(int(data["suggestion"]["north"]["distance"])))+" miles north of "+ data["suggestion"]["north"]["city"] + countryname(data["suggestion"]["north"]["prov"])
+    #             else:
+    #                 result = str(km_to_mile(int(data["suggestion"]["south"]["distance"])))+" miles south of "+ data["suggestion"]["south"]["city"] + countryname(data["suggestion"]["south"]["prov"])
+    # else:
+    #     result = data["city"]+", "+ countryname(data["prov"])
+
+    ##https://api.opencagedata.com/geocode/v1/json?q=-22.6792%2C14.5272&key=b88f47bb32ac4b6fb81e7fbf611f9e21&pretty=1
+
+
+    data = json.loads(urllib.request.urlopen("https://api.opencagedata.com/geocode/v1/json?q="+str(lat)+"%2C"+str(lon)+"&limit=1&language=en&key=b88f47bb32ac4b6fb81e7fbf611f9e21").read().decode("utf8","ignore"))
+    if len(data["results"])== 0:
+        return [500, 0, "Nothing found, please check the input"]
+    if "formatted" in data["results"][0]:
+        newcityname = data["results"][0]["formatted"]
+    elif "city" in data["results"][0]["components"]:
+        newcityname = data["results"][0]["components"]["city"]
+    elif "county" in data["results"][0]["components"]:
+        newcityname = data["results"][0]["components"]["county"]
+    elif "unknown" in data["results"][0]["components"]:
+        newcityname = data["results"][0]["components"]["unknown"]
     else:
-        result = data["city"]+", "+ countryname(data["prov"])
-    return("<br>" + result)
+        newcityname = ""
+    return("<br>" + newcityname)
 
 
 ##可增加具体角度而不仅仅是南北
@@ -121,7 +140,9 @@ def countryname(countryshort):
         return ", " + countrylist[countryshort]
     else:
         return ", " + countryshort
-        
-        
-        
-##print(getmapsetting(getlatlon("Buffalo","1"),"1"))
+
+
+
+
+
+            ##print(getmapsetting(getlatlon("Buffalo","1"),"1"))

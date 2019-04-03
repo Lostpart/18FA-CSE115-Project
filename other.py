@@ -1,5 +1,5 @@
 def html_for_weather_info_part(numberofcity):
-    path= "C:/wamp/www/UB/CSE115/Project2"
+    path = "D:/OneDrive/OneDrive - buffalo.edu/Code/IdeaProject/CSE115-Project1"
     numberofcity = numberofcity + 10
     if numberofcity == 12:
         with open(path + "/html/double.html") as f:
