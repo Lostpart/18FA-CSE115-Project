@@ -96,30 +96,34 @@ function showCurWeather(citynumber,html , nameofcity, temp, rain, weatherInWord,
 }
 
 function getweathericonurl(iconindex){
-    var iconchecklist = {
-        "01d":"http://i1.fuimg.com/524267/46420a66b4643fc3.png",
-        "01n":"http://i1.fuimg.com/524267/fa490e40e0ab5b0a.png",
-        "02d":"http://i1.fuimg.com/524267/2733a4d924136ad9.png",
-        "02n":"http://i1.fuimg.com/524267/c5b4227377a518ff.png",
-        "03d":"http://i1.fuimg.com/524267/d147456ce0d56638.png",
-        "03n":"http://i1.fuimg.com/524267/d147456ce0d56638.png",
-        "04d":"http://i1.fuimg.com/524267/d147456ce0d56638.png",
-        "04n":"http://i1.fuimg.com/524267/d147456ce0d56638.png",
-        "09d":"http://i1.fuimg.com/524267/51f1bb1e1be5de34.png",
-        "09n":"http://i1.fuimg.com/524267/51f1bb1e1be5de34.png",
-        "10d":"http://i1.fuimg.com/524267/dc125a353910108a.png",
-        "10n":"http://i1.fuimg.com/524267/dc125a353910108a.png",
-        "11d":"http://i1.fuimg.com/524267/2ac7d65feb8703c9.png",
-        "11n":"http://i1.fuimg.com/524267/1a6692f1c40fc0bb.png",
-        "13d":"http://i1.fuimg.com/524267/feb1297551d0a4dd.png",
-        "13n":"http://i1.fuimg.com/524267/feb1297551d0a4dd.png",
-        "50d":"http://i1.fuimg.com/524267/b01ded00c7d1aa46.png",
-        "50n":"http://i1.fuimg.com/524267/b01ded00c7d1aa46.png"
-    };
-    if(iconindex in iconchecklist){
-        return iconchecklist[iconindex];
-    }
-    return iconchecklist["01d"];
+    var domain = document.domain;
+    return "http://" + domain + "/image/weathericon/"+ iconindex +".png"
+
+    // 事实证明贴图库在北美并不好用
+    // var iconchecklist = {
+    //     "01d":"http://i1.fuimg.com/524267/46420a66b4643fc3.png",
+    //     "01n":"http://i1.fuimg.com/524267/fa490e40e0ab5b0a.png",
+    //     "02d":"http://i1.fuimg.com/524267/2733a4d924136ad9.png",
+    //     "02n":"http://i1.fuimg.com/524267/c5b4227377a518ff.png",
+    //     "03d":"http://i1.fuimg.com/524267/d147456ce0d56638.png",
+    //     "03n":"http://i1.fuimg.com/524267/d147456ce0d56638.png",
+    //     "04d":"http://i1.fuimg.com/524267/d147456ce0d56638.png",
+    //     "04n":"http://i1.fuimg.com/524267/d147456ce0d56638.png",
+    //     "09d":"http://i1.fuimg.com/524267/51f1bb1e1be5de34.png",
+    //     "09n":"http://i1.fuimg.com/524267/51f1bb1e1be5de34.png",
+    //     "10d":"http://i1.fuimg.com/524267/dc125a353910108a.png",
+    //     "10n":"http://i1.fuimg.com/524267/dc125a353910108a.png",
+    //     "11d":"http://i1.fuimg.com/524267/2ac7d65feb8703c9.png",
+    //     "11n":"http://i1.fuimg.com/524267/1a6692f1c40fc0bb.png",
+    //     "13d":"http://i1.fuimg.com/524267/feb1297551d0a4dd.png",
+    //     "13n":"http://i1.fuimg.com/524267/feb1297551d0a4dd.png",
+    //     "50d":"http://i1.fuimg.com/524267/b01ded00c7d1aa46.png",
+    //     "50n":"http://i1.fuimg.com/524267/b01ded00c7d1aa46.png"
+    // };
+    // if(iconindex in iconchecklist){
+    //     return iconchecklist[iconindex];
+    // }
+    // return iconchecklist["01d"];
     
 }
 

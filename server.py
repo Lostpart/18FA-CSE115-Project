@@ -1,4 +1,5 @@
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, send_from_directory
+
 import json
 import left
 import right
@@ -41,7 +42,13 @@ def getweather():
 @app.route("/getweather_withip/", methods=["GET"])
 def getweather_withip():
     userIP = request.remote_addr
-    if userIP in IPy.IP("8.22.104.0/21"):
+    if userIP in IPy.IP("10.0.0.0/8"):
+        locinfo = [42.88642, -78.87815, "Buffalo"]
+    elif userIP in IPy.IP("10.0.0.0/8"):
+        locinfo = [42.88642, -78.87815, "Buffalo"]
+    elif userIP in IPy.IP("10.0.0.0/8"):
+        locinfo = [42.88642, -78.87815, "Buffalo"]
+    elif userIP in IPy.IP("8.22.104.0/21"):
         locinfo = [42.88642, -78.87815, "Buffalo"] 
         # Since 90%+ of the request will from our school IP address
         # I add this "cache" to save process time and the API usage
@@ -51,6 +58,7 @@ def getweather_withip():
         with open("ip.log", "a") as f:
             f.write("http://ipinfo.io/"+userIP+"/geo?token=7df5a703e5f495"+"\n")
         address = json.loads(urllib.request.urlopen("http://ipinfo.io/"+userIP+"/geo?token=7df5a703e5f495").read().decode("utf8", "ignore"))
+        print(address)
         loc = address["loc"].split(",",1)
         locinfo = [loc[0],loc[1],address["city"]]
     
@@ -79,6 +87,9 @@ def getweather_bothloc():
     result.append(other.html_for_weather_info_part(2))
     return(json.dumps(result))
 
+@app.route('/image/weathericon/<path:filename>')
+def static_files(filename):
+    return send_from_directory('./templates/image/weathericon/', filename)
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=82)
