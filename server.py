@@ -44,9 +44,9 @@ def getweather_withip():
     userIP = request.remote_addr
     if userIP in IPy.IP("10.0.0.0/8"):
         locinfo = [42.88642, -78.87815, "Buffalo"]
-    elif userIP in IPy.IP("10.0.0.0/8"):
+    elif userIP in IPy.IP("127.16.0.0/12"):
         locinfo = [42.88642, -78.87815, "Buffalo"]
-    elif userIP in IPy.IP("10.0.0.0/8"):
+    elif userIP in IPy.IP("192.168.0.0/16"):
         locinfo = [42.88642, -78.87815, "Buffalo"]
     elif userIP in IPy.IP("8.22.104.0/21"):
         locinfo = [42.88642, -78.87815, "Buffalo"] 
